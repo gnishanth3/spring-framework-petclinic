@@ -37,6 +37,14 @@ You can then access petclinic here: [http://localhost:8080/](http://localhost:80
 
 Our issue tracker is available here: https://github.com/spring-petclinic/spring-framework-petclinic/issues
 
+#Run locally with docker and mysql
+
+a) change the host to mysql in pom.xml for mysql 
+b) docker network create todo-app
+
+1.docker run -p 8080:8080 -it --rm --name my-maven-project -e MYSQL_HOST=mysql --network todo-app -v "$(pwd)":/usr/src/mymaven  -v maven-repo:/root/.m2 -w /usr/src/mymaven maven:3.8.4-jdk-11 ./mvnw  -Dmaven.test.skip=true jetty:run-war -P MySQL
+
+2.docker run  --network todo-app --network-alias mysql -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:5.7.8
 
 ## Database configuration
 
